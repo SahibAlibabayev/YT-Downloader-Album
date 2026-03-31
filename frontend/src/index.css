@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Fontlar */
+body, * {
+  font-family: 'Geologica', system-ui, sans-serif;
+}
+
+.font-geologica {
+  font-family: 'Geologica', sans-serif;
+}
+
+/* Global Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  border: 2px solid var(--bg-deep);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Dark scrollbar inside modals */
+.glass-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+.glass-card::-webkit-scrollbar-thumb {
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+}
+.glass-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@layer base {
+  :root {
+    /* Colour Theme Variables (Controlled via JavaScript) */
+    --theme-color-1: #4f46e5; /* Primary */
+    --theme-color-2: #ec4899; /* Secondary */
+    --theme-gradient: linear-gradient(
+      135deg,
+      var(--theme-color-1) 0%,
+      var(--theme-color-2) 100%
+    );
+    --theme-glow: rgba(79, 70, 229, 0.4);
+
+    /* Background and Text Theme Variables (For Light/Dark Mode) */
+    --bg-deep: #050505;
+    --bg-darker: #0a0a0b;
+    --bg-card: rgba(20, 20, 22, 0.6);
+    --bg-input: rgba(255, 255, 255, 0.03);
+
+    --text-main: #ffffff;
+    --text-muted: #8a8a93;
+
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-focus: rgba(255, 255, 255, 0.15);
+
+    /* Shadows and Effects */
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  /* ----- AYDINLIK MOD (LIGHT MODE) ----- */
+  html.light {
+    --bg-deep: #f3f4f6;
+    --bg-darker: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.7);
+    --bg-input: rgba(0, 0, 0, 0.03);
+
+    --text-main: #111827;
+    --text-muted: #4b5563;
+
+    --border-subtle: rgba(0, 0, 0, 0.1);
+    --border-focus: rgba(0, 0, 0, 0.25);
+
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  body {
+    @apply font-sans antialiased flex flex-col min-h-screen overflow-x-hidden;
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease;
+    background-image:
+      radial-gradient(
+        circle at 15% 50%,
+        rgba(var(--theme-glow-rgb, 79, 70, 229), 0.15),
+        transparent 30%
+      ),
+      radial-gradient(
+        circle at 85% 30%,
+        rgba(var(--theme-glow2-rgb, 236, 72, 153), 0.15),
+        transparent 30%
+      );
+  }
+}
+
+@layer components {
+  /* Cam Efektli Kart */
+  .glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-subtle);
+    box-shadow:
+      var(--shadow-glass),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Ana Buton */
+  .btn-primary {
+    background: var(--theme-gradient);
+    @apply text-white border-none py-4 px-8 rounded-full font-semibold text-lg cursor-pointer flex items-center justify-center gap-2 relative overflow-hidden transition-all duration-300;
+    box-shadow: 0 4px 15px rgba(var(--theme-glow2-rgb, 236, 72, 153), 0.3);
+  }
+
+  .btn-primary:hover {
+    @apply -translate-y-1 scale-105;
+    box-shadow: 0 8px 25px rgba(var(--theme-glow2-rgb, 236, 72, 153), 0.4);
+  }
+
+  .btn-primary:active {
+    @apply translate-y-0 scale-95;
+  }
+}

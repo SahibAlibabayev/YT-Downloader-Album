@@ -1,0 +1,66 @@
+{
+  "name": "yt-downloader",
+  "version": "1.0.0",
+  "description": "YouTube video & playlist downloader with a beautiful UI",
+  "main": "electron/main.js",
+  "author": "Sahib Əlibabayev",
+  "license": "MIT",
+  "scripts": {
+    "electron:dev": "npm run build --prefix frontend && electron .",
+    "electron:start": "electron .",
+    "electron:build": "npm run build --prefix frontend && electron-builder",
+    "setup-resources": "powershell -ExecutionPolicy Bypass -File scripts/setup-resources.ps1"
+  },
+  "dependencies": {
+    "electron-store": "^8.2.0"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.ytdownloader.desktop",
+    "productName": "YT Downloader",
+    "copyright": "Copyright © 2025",
+    "directories": {
+      "output": "dist-electron",
+      "buildResources": "build-assets"
+    },
+    "files": [
+      "electron/**/*",
+      "frontend/dist/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/python",
+        "to": "python",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "resources/ffmpeg",
+        "to": "ffmpeg",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "backend",
+        "to": "backend",
+        "filter": ["**/*.py", "requirements.txt"]
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build-assets/icon.ico",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "YT Downloader",
+      "installerIcon": "build-assets/icon.ico",
+      "uninstallerIcon": "build-assets/icon.ico"
+    }
+  }
+}
